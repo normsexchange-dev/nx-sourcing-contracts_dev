@@ -1,0 +1,11 @@
+{
+  "contract_version": "0.1.0",
+  "batch_id": "batch-empty-example",
+  "generated_at": "2026-08-25T00:00:00Z",
+  "generating_agent": "contract-example",
+  "research_market": {
+    "description": "Empty contract-validation example; contains no research results or lead data."
+  },
+  "record_count": 0,
+  "records": []
+}

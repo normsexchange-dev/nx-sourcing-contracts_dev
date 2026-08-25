@@ -1,0 +1,19 @@
+# Local tooling and operating-system artifacts
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Secrets and local configuration never belong in this public repository
+.env
+.env.*
+*.pem
+*.key
+credentials*
+secrets*
+
+# Actual sourcing outputs must remain in a separately authorized private system
+/data/
+/leads/
+/results/
+/batches/

@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/main/schemas/lead-record.schema.json",
+  "title": "NX sourcing lead record",
+  "description": "A public-business research lead only; never a listing, seller, customer, submission, or inventory item.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "lead_id",
+    "marketplace_state",
+    "public_listing_authorized",
+    "company_name",
+    "country",
+    "organization_categories",
+    "equipment_or_service_categories",
+    "disposition_signal",
+    "workflow_status",
+    "factual_evidence",
+    "observed_at",
+    "source_urls"
+  ],
+  "properties": {
+    "contract_version": {"const": "0.1.0"},
+    "lead_id": {
+      "type": "string",
+      "pattern": "^lead-[a-z0-9][a-z0-9-]{7,63}$"
+    },
+    "marketplace_state": {"const": "lead_only"},
+    "public_listing_authorized": {"const": false},
+    "company_name": {"type": "string", "minLength": 1, "maxLength": 240},
+    "public_business_website": {"type": ["string", "null"], "format": "uri"},
+    "public_professional_social_urls": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "format": "uri"},
+      "maxItems": 20
+    },
+    "country": {"type": "string", "minLength": 2, "maxLength": 120},
+    "region": {"type": ["string", "null"], "maxLength": 160},
+    "city": {"type": ["string", "null"], "maxLength": 160},
+    "public_business_email": {"type": ["string", "null"], "format": "email", "maxLength": 254},
+    "public_business_telephone": {"type": ["string", "null"], "minLength": 3, "maxLength": 80},
+    "public_professional_contact": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 160},
+        "title": {"type": ["string", "null"], "maxLength": 160},
+        "profile_url": {"type": ["string", "null"], "format": "uri"}
+      }
+    },
+    "organization_categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "rental_house",
+          "production_company",
+          "studio",
+          "broadcaster",
+          "school_or_university",
+          "reseller_or_dealer",
+          "auction_or_liquidation",
+          "nonprofit",
+          "government",
+          "corporate_media",
+          "independent_professional",
+          "other"
+        ]
+      }
+    },
+    "equipment_or_service_categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "camera",
+          "lighting",
+          "grip",
+          "movement",
+          "sound",
+          "video_or_dit",
+          "power",
+          "carts_or_packages",
+          "studio_facilities",
+          "post_production",
+          "production_services",
+          "other"
+        ]
+      }
+    },
+    "other_classification": {"type": ["string", "null"], "maxLength": 240},
+    "disposition_signal": {
+      "enum": ["none", "possible_excess_inventory", "possible_liquidation", "explicit_for_sale"]
+    },
+    "workflow_status": {
+      "enum": ["discovered", "needs_verification", "qualified", "rejected"]
+    },
+    "factual_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "claim", "source_url", "observed_at"],
+        "properties": {
+          "evidence_id": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{3,63}$"},
+          "claim": {"type": "string", "minLength": 1, "maxLength": 2000},
+          "source_url": {"type": "string", "format": "uri"},
+          "source_title": {"type": ["string", "null"], "maxLength": 500},
+          "observed_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "agent_assessment": {
+      "type": ["object", "null"],
+      "description": "Clearly labeled agent inference, separate from factual evidence.",
+      "additionalProperties": false,
+      "required": ["summary", "confidence", "derived_from_evidence_ids"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "confidence": {"enum": ["low", "medium", "high"]},
+        "derived_from_evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{3,63}$"}
+        }
+      }
+    },
+    "observed_at": {"type": "string", "format": "date-time"},
+    "source_urls": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "format": "uri"}
+    },
+    "supersedes_lead_id": {
+      "type": ["string", "null"],
+      "pattern": "^lead-[a-z0-9][a-z0-9-]{7,63}$"
+    },
+    "deduplication_keys": {
+      "type": "object",
+      "description": "Non-authoritative comparison hints; never proof that organizations are identical.",
+      "additionalProperties": false,
+      "properties": {
+        "normalized_website_domain": {
+          "type": ["string", "null"],
+          "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"
+        },
+        "normalized_business_telephone": {"type": ["string", "null"], "pattern": "^\\+[1-9][0-9]{6,14}$"},
+        "external_public_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["namespace", "value"],
+            "properties": {
+              "namespace": {"type": "string", "minLength": 1, "maxLength": 80},
+              "value": {"type": "string", "minLength": 1, "maxLength": 240}
+            }
+          }
+        }
+      }
+    }
+  }
+}

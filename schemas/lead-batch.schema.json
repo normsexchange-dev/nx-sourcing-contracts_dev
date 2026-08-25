@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/main/schemas/lead-batch.schema.json",
+  "title": "NX sourcing lead batch",
+  "description": "An append-only submission envelope for lead-only records. Actual populated batches belong in an authorized private system, never this public repository.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "batch_id",
+    "generated_at",
+    "generating_agent",
+    "research_market",
+    "record_count",
+    "records"
+  ],
+  "properties": {
+    "contract_version": {"const": "0.1.0"},
+    "batch_id": {"type": "string", "pattern": "^batch-[a-z0-9][a-z0-9-]{7,63}$"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "generating_agent": {"type": "string", "minLength": 1, "maxLength": 160},
+    "research_market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1, "maxLength": 500},
+        "country_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 50,
+          "items": {"type": "string", "pattern": "^[A-Z]{2}$"}
+        },
+        "regions": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 100,
+          "items": {"type": "string", "minLength": 1, "maxLength": 160}
+        }
+      }
+    },
+    "record_count": {"type": "integer", "minimum": 0},
+    "records": {
+      "type": "array",
+      "items": {"$ref": "lead-record.schema.json"}
+    }
+  }
+}

@@ -13,17 +13,21 @@ This repository contains versioned public interface contracts for the Norms Exch
 - Sourcing uses public business information only and performs no outreach unless Ray separately authorizes it.
 - Missing facts remain absent or `null`; they are never invented.
 
-The detailed boundaries are in [docs/SECURITY_BOUNDARY.md](docs/SECURITY_BOUNDARY.md), and the submission lifecycle is in [docs/SOURCING_WORKFLOW.md](docs/SOURCING_WORKFLOW.md).
+The detailed boundaries are in [docs/SECURITY_BOUNDARY.md](docs/SECURITY_BOUNDARY.md), the submission lifecycle is in [docs/SOURCING_WORKFLOW.md](docs/SOURCING_WORKFLOW.md), and mandatory private-consumer checks are in [docs/CONSUMER_VALIDATION.md](docs/CONSUMER_VALIDATION.md).
 
 ## Version and schemas
 
-The current contract version is recorded in `CONTRACT_VERSION`. The schemas use JSON Schema Draft 2020-12:
+The current contract version is recorded in `CONTRACT_VERSION`. Released schemas use immutable `contract-v<version>` tags rather than mutable `main` URLs. Contract `0.1.0` resolves to `contract-v0.1.0`. The schemas use JSON Schema Draft 2020-12:
 
 - `schemas/lead-record.schema.json` defines one lead-only sourcing record.
 - `schemas/lead-batch.schema.json` defines an append-only batch of records.
 - `examples/empty-lead-batch.json` is a zero-record example containing no lead or marketplace data.
 
 Schemas are restrictive and reject undeclared properties where practical. Non-authoritative deduplication keys are hints for later review; they never assert that similar organizations are identical.
+
+Each factual-evidence entry requires a controlled `source_type`. It may include an optional concise `source_language`, while its factual claim, source URL, and observation time remain required. Valid schema conformance never turns a lead into a WTS listing, seller, customer, inventory item, or authorization to publish.
+
+Private consumers of populated batches must perform genuine Draft 2020-12 validation—including URI and format validation—and the deterministic cross-record checks documented in `docs/CONSUMER_VALIDATION.md`. Cached or previously accepted records remain subject to the schema version they declare.
 
 ## Deterministic validation
 

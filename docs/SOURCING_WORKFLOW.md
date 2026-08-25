@@ -6,7 +6,7 @@ Identify a public business source without bypassing access controls or platform 
 
 ## 2. Record sourced facts
 
-Capture only public business facts needed by the contract. Each factual evidence entry includes its own stable evidence ID, concise claim, source URL, and `observed_at` timestamp. The record also lists its source URLs and overall observation time.
+Capture only public business facts needed by the contract. Each factual evidence entry includes its own stable evidence ID, concise claim, controlled `source_type`, source URL, and `observed_at` timestamp. An optional concise `source_language` may identify the source language without inventing or translating facts. The record also lists its source URLs and overall observation time.
 
 Do not infer missing facts. Optional information stays absent or `null` when unavailable.
 
@@ -43,3 +43,5 @@ If a record needs correction, issue a new stable lead record with `supersedes_le
 Submit actual batches only to a separately authorized private results system. No lead batch with real records belongs in this public contract repository.
 
 Norms performs identity review, deduplication, evidence review, and any separately authorized outreach. Only Norms review plus confirmed seller authorization can initiate a distinct marketplace-ingestion process. External agents never create customers, sellers, WTS submissions, inventory, or public listings.
+
+Private consumers must resolve the record's declared contract version to its immutable `contract-v<version>` tag, perform genuine Draft 2020-12 schema and format validation, and enforce the cross-record checks in `CONSUMER_VALIDATION.md`. Validation never grants listing or publication authority.

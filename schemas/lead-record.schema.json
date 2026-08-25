@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/main/schemas/lead-record.schema.json",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.1.0/schemas/lead-record.schema.json",
   "title": "NX sourcing lead record",
   "description": "A public-business research lead only; never a listing, seller, customer, submission, or inventory item.",
   "type": "object",
@@ -106,10 +106,28 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["evidence_id", "claim", "source_url", "observed_at"],
+        "required": ["evidence_id", "claim", "source_type", "source_url", "observed_at"],
         "properties": {
           "evidence_id": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{3,63}$"},
           "claim": {"type": "string", "minLength": 1, "maxLength": 2000},
+          "source_type": {
+            "enum": [
+              "company_website",
+              "public_business_profile",
+              "marketplace_listing",
+              "directory",
+              "news",
+              "public_filing",
+              "social_business_profile",
+              "other"
+            ]
+          },
+          "source_language": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 35,
+            "description": "Optional concise language name or language tag for the source."
+          },
           "source_url": {"type": "string", "format": "uri"},
           "source_title": {"type": ["string", "null"], "maxLength": 500},
           "observed_at": {"type": "string", "format": "date-time"}

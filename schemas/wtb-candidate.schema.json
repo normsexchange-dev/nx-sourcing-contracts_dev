@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.2.0/schemas/wtb-candidate.schema.json",
+  "title": "NX WTB candidate record",
+  "description": "An evidence-backed research candidate only; never a confirmed buyer request or published WTB listing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "candidate_id",
+    "record_origin",
+    "record_classification",
+    "organization",
+    "market",
+    "equipment_categories",
+    "requested_equipment",
+    "demand_classification",
+    "demand_evidence_ids",
+    "factual_evidence",
+    "source_urls",
+    "source_languages",
+    "research_timestamp",
+    "candidate_status",
+    "norms_review_status",
+    "buyer_confirmation_status",
+    "publication_status",
+    "supersedes_candidate_id",
+    "deduplication_keys"
+  ],
+  "properties": {
+    "contract_version": {"const": "0.2.0"},
+    "candidate_id": {"type": "string", "pattern": "^wtb-candidate-[a-z0-9][a-z0-9-]{7,79}$"},
+    "record_origin": {"enum": ["public_research", "contract_fixture"]},
+    "record_classification": {"const": "wtb_candidate_not_published_listing"},
+    "organization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "organization_type", "public_website", "public_contact_channels", "evidence_ids"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 240},
+        "organization_type": {"enum": ["production_company", "rental_house", "studio", "broadcaster", "school_or_university", "reseller_or_dealer", "government", "nonprofit", "independent_professional", "other"]},
+        "public_website": {"type": ["string", "null"], "format": "uri"},
+        "public_contact_channels": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["channel_type", "value", "source_url", "evidence_id"],
+            "properties": {
+              "channel_type": {"enum": ["email", "telephone", "contact_form", "website", "public_professional_profile", "other"]},
+              "value": {"type": "string", "minLength": 1, "maxLength": 500},
+              "source_url": {"type": "string", "format": "uri"},
+              "evidence_id": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}
+            }
+          }
+        },
+        "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}}
+      }
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country_code", "country", "city", "region", "evidence_ids"],
+      "properties": {
+        "country_code": {"type": "string", "pattern": "^[A-Z]{2}$"},
+        "country": {"type": "string", "minLength": 2, "maxLength": 120},
+        "city": {"type": ["string", "null"], "maxLength": 160},
+        "region": {"type": ["string", "null"], "maxLength": 160},
+        "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}}
+      }
+    },
+    "equipment_categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["camera", "lens", "lighting", "grip", "sound", "power", "vehicle", "studio_equipment", "complete_package", "liquidation", "other"]}
+    },
+    "requested_equipment": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["request_id", "description", "equipment_category", "evidence_ids", "quantity", "budget", "timeline"],
+        "properties": {
+          "request_id": {"type": "string", "pattern": "^request-[a-z0-9][a-z0-9-]{7,79}$"},
+          "description": {"type": "string", "minLength": 1, "maxLength": 1000},
+          "equipment_category": {"enum": ["camera", "lens", "lighting", "grip", "sound", "power", "vehicle", "studio_equipment", "complete_package", "liquidation", "other"]},
+          "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}},
+          "quantity": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["minimum", "maximum", "unit", "evidence_ids"],
+            "properties": {
+              "minimum": {"type": "integer", "minimum": 1},
+              "maximum": {"type": ["integer", "null"], "minimum": 1},
+              "unit": {"type": "string", "minLength": 1, "maxLength": 80},
+              "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}}
+            }
+          },
+          "budget": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["minimum", "maximum", "currency", "evidence_ids"],
+            "properties": {
+              "minimum": {"type": ["number", "null"], "minimum": 0},
+              "maximum": {"type": ["number", "null"], "minimum": 0},
+              "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+              "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}}
+            },
+            "anyOf": [{"required": ["minimum"]}, {"required": ["maximum"]}]
+          },
+          "timeline": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["description", "evidence_ids"],
+            "properties": {
+              "description": {"type": "string", "minLength": 1, "maxLength": 500},
+              "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}}
+            }
+          }
+        }
+      }
+    },
+    "demand_classification": {"enum": ["explicit", "inferred"]},
+    "demand_evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"}},
+    "factual_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "claim_classification", "claim", "source_type", "source_url", "source_title", "source_language", "observed_at"],
+        "properties": {
+          "evidence_id": {"type": "string", "pattern": "^evidence-[a-z0-9][a-z0-9-]{7,79}$"},
+          "claim_classification": {"enum": ["organization_identity", "market_location", "demand", "equipment_request", "quantity", "budget", "timeline", "public_contact"]},
+          "claim": {"type": "string", "minLength": 1, "maxLength": 2000},
+          "source_type": {"enum": ["organization_website", "public_business_profile", "public_request", "marketplace_wanted_post", "directory", "news", "public_filing", "public_professional_profile", "other"]},
+          "source_url": {"type": "string", "format": "uri"},
+          "source_title": {"type": ["string", "null"], "maxLength": 500},
+          "source_language": {"type": "string", "minLength": 2, "maxLength": 35},
+          "observed_at": {"type": "string", "format": "date-time"}
+        }
+      }
+    },
+    "source_urls": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "format": "uri"}},
+    "source_languages": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 2, "maxLength": 35}},
+    "research_timestamp": {"type": "string", "format": "date-time"},
+    "candidate_status": {"enum": ["researched", "needs_verification", "evidence_verified", "rejected", "superseded"]},
+    "norms_review_status": {"const": "not_reviewed"},
+    "buyer_confirmation_status": {"const": "unconfirmed"},
+    "publication_status": {"const": "not_approved"},
+    "supersedes_candidate_id": {"type": ["string", "null"], "pattern": "^wtb-candidate-[a-z0-9][a-z0-9-]{7,79}$"},
+    "deduplication_keys": {
+      "type": "object",
+      "description": "Non-authoritative comparison hints; never proof of organization or demand identity.",
+      "additionalProperties": false,
+      "required": ["normalized_website_domain", "normalized_organization_name", "external_public_ids"],
+      "properties": {
+        "normalized_website_domain": {"type": ["string", "null"], "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"},
+        "normalized_organization_name": {"type": ["string", "null"], "maxLength": 240},
+        "external_public_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["namespace", "value"],
+            "properties": {
+              "namespace": {"type": "string", "minLength": 1, "maxLength": 80},
+              "value": {"type": "string", "minLength": 1, "maxLength": 240}
+            }
+          }
+        }
+      }
+    }
+  }
+}

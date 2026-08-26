@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.1.0/schemas/lead-batch.schema.json",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.2.0/schemas/lead-batch.schema.json",
   "title": "NX sourcing lead batch",
   "description": "An append-only submission envelope for lead-only records. Actual populated batches belong in an authorized private system, never this public repository.",
   "type": "object",
@@ -15,7 +15,7 @@
     "records"
   ],
   "properties": {
-    "contract_version": {"const": "0.1.0"},
+    "contract_version": {"const": "0.2.0"},
     "batch_id": {"type": "string", "pattern": "^batch-[a-z0-9][a-z0-9-]{7,63}$"},
     "generated_at": {"type": "string", "format": "date-time"},
     "generating_agent": {"type": "string", "minLength": 1, "maxLength": 160},

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.1.0/schemas/lead-record.schema.json",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.2.0/schemas/lead-record.schema.json",
   "title": "NX sourcing lead record",
   "description": "A public-business research lead only; never a listing, seller, customer, submission, or inventory item.",
   "type": "object",
@@ -21,7 +21,7 @@
     "source_urls"
   ],
   "properties": {
-    "contract_version": {"const": "0.1.0"},
+    "contract_version": {"const": "0.2.0"},
     "lead_id": {
       "type": "string",
       "pattern": "^lead-[a-z0-9][a-z0-9-]{7,63}$"

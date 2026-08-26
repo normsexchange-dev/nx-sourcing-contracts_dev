@@ -1,5 +1,5 @@
 {
-  "contract_version": "0.1.0",
+  "contract_version": "0.2.0",
   "batch_id": "batch-empty-example",
   "generated_at": "2026-08-25T00:00:00Z",
   "generating_agent": "contract-example",

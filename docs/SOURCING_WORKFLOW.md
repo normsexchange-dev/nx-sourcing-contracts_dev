@@ -1,5 +1,7 @@
 # Sourcing Workflow
 
+This document governs WTS-oriented lead records. WTB candidates use `WTB_CANDIDATE_WORKFLOW.md`; neither workflow grants sourcing, outreach, or publication authority.
+
 ## 1. Discover
 
 Identify a public business source without bypassing access controls or platform restrictions. Do not perform outreach. Create a stable lead ID for the observation; the ID identifies a lead record, not a company or marketplace listing.
@@ -44,4 +46,4 @@ Submit actual batches only to a separately authorized private results system. No
 
 Norms performs identity review, deduplication, evidence review, and any separately authorized outreach. Only Norms review plus confirmed seller authorization can initiate a distinct marketplace-ingestion process. External agents never create customers, sellers, WTS submissions, inventory, or public listings.
 
-Private consumers must resolve the record's declared contract version to its immutable `contract-v<version>` tag, perform genuine Draft 2020-12 schema and format validation, and enforce the cross-record checks in `CONSUMER_VALIDATION.md`. Validation never grants listing or publication authority.
+Private consumers must resolve the record's declared contract version to its immutable `contract-v<version>` tag, perform genuine Draft 2020-12 schema and format validation, and enforce the cross-record checks in `CONSUMER_VALIDATION.md`. Contract `0.2.0` resolves to `contract-v0.2.0`. Validation never grants listing or publication authority.

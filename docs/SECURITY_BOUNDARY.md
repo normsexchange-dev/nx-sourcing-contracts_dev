@@ -2,7 +2,7 @@
 
 ## Public contract, private results
 
-This public repository contains interface definitions and empty examples only. Actual leads, research results, business contacts, outreach activity, customer or seller information, marketplace records, credentials, raw conversations, and internal agent transcripts do not belong here.
+This public repository contains interface definitions, empty examples, and clearly marked reserved-domain contract fixtures only. Actual leads, WTB candidates, research results, business contacts, outreach activity, customer or seller information, marketplace records, credentials, raw conversations, and internal agent transcripts do not belong here.
 
 The contract does not grant access to any private system. It contains no Shopify integration, secrets, tokens, deploy keys, account instructions, private configuration, or executable sourcing agent.
 
@@ -18,6 +18,21 @@ An externally sourced record is a lead only. It is not a WTS listing, customer, 
 ```
 
 External sourcing agents cannot authorize, create, or publish WTS listings. Only Norms review and separately confirmed seller authorization can later move information into a distinct marketplace workflow.
+
+## WTB-candidate invariant
+
+A WTB candidate is a research result, not a confirmed request or published listing. External submissions always retain:
+
+```json
+{
+  "record_classification": "wtb_candidate_not_published_listing",
+  "norms_review_status": "not_reviewed",
+  "buyer_confirmation_status": "unconfirmed",
+  "publication_status": "not_approved"
+}
+```
+
+Only Norms may review evidence, confirm an actual buyer, approve publication, or create a Shopify WTB listing. Inferred demand never carries quantities, budgets, currencies, or timelines. Explicit details are permitted only when linked to factual evidence.
 
 ## Permitted collection
 
@@ -35,7 +50,7 @@ Personal social-media information is prohibited unless the profile is explicitly
 
 Every factual claim must be supported by a source URL and an observation timestamp. Quoted or summarized facts belong in `factual_evidence`. Agent judgment belongs separately in `agent_assessment` and must identify the evidence records from which it was derived. Assessments must never be represented as sourced facts.
 
-Missing or uncertain information remains absent or `null`. Agents must not invent companies, people, contact details, equipment, prices, authorization, marketplace activity, or evidence.
+Missing or uncertain information remains absent or `null`. Agents must not invent companies, people, buyers, contact details, equipment, quantities, budgets, currencies, timelines, prices, authorization, marketplace activity, or evidence.
 
 ## Deduplication and history
 

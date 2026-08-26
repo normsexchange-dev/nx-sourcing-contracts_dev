@@ -1,0 +1,17 @@
+{
+  "contract_version": "0.2.0",
+  "batch_id": "wtb-batch-empty-contract-fixture",
+  "batch_classification": "untrusted_wtb_candidate_submission",
+  "submission_purpose": "contract_fixture",
+  "generated_at": "2026-08-26T00:00:00Z",
+  "generating_environment": "contract-fixture",
+  "assignment_reference": null,
+  "research_market": {
+    "description": "Empty contract fixture containing no WTB candidate or sourcing data.",
+    "country_codes": [],
+    "cities": []
+  },
+  "supersedes_batch_id": null,
+  "record_count": 0,
+  "records": []
+}

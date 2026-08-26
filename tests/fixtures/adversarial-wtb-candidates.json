@@ -1,0 +1,16 @@
+{
+  "contract_version": "0.2.0",
+  "fixture_model": "mutations_of_minimal_wtb_candidate_batch",
+  "cases": [
+    {"case_id": "inferred-demand-with-explicit-budget", "mutation": "inferred_with_budget", "expected": "reject"},
+    {"case_id": "missing-demand-evidence", "mutation": "missing_demand_evidence", "expected": "reject"},
+    {"case_id": "restricted-buyer-confirmed-status", "mutation": "buyer_confirmed", "expected": "reject"},
+    {"case_id": "record-count-mismatch", "mutation": "record_count_mismatch", "expected": "reject"},
+    {"case_id": "duplicate-candidate-id", "mutation": "duplicate_candidate_id", "expected": "reject"},
+    {"case_id": "dangling-evidence-reference", "mutation": "dangling_evidence_reference", "expected": "reject"},
+    {"case_id": "self-supersession", "mutation": "self_supersession", "expected": "reject"},
+    {"case_id": "published-listing-classification", "mutation": "published_listing", "expected": "reject"},
+    {"case_id": "unsupported-candidate-field", "mutation": "unsupported_field", "expected": "reject"},
+    {"case_id": "missing-source-language", "mutation": "missing_source_language", "expected": "reject"}
+  ]
+}

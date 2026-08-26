@@ -1,0 +1,101 @@
+{
+  "contract_version": "0.2.0",
+  "batch_id": "wtb-batch-minimal-contract-fixture",
+  "batch_classification": "untrusted_wtb_candidate_submission",
+  "submission_purpose": "contract_fixture",
+  "generated_at": "2026-08-26T00:00:00Z",
+  "generating_environment": "contract-fixture",
+  "assignment_reference": null,
+  "research_market": {
+    "description": "Reserved-domain contract fixture for deterministic validation only.",
+    "country_codes": ["VN"],
+    "cities": ["Fixture City"]
+  },
+  "supersedes_batch_id": null,
+  "record_count": 1,
+  "records": [
+    {
+      "contract_version": "0.2.0",
+      "candidate_id": "wtb-candidate-minimal-contract-fixture",
+      "record_origin": "contract_fixture",
+      "record_classification": "wtb_candidate_not_published_listing",
+      "organization": {
+        "name": "Contract Fixture Organization",
+        "organization_type": "production_company",
+        "public_website": "https://example.invalid/organization",
+        "public_contact_channels": [],
+        "evidence_ids": ["evidence-fixture-identity-0001"]
+      },
+      "market": {
+        "country_code": "VN",
+        "country": "Vietnam",
+        "city": "Fixture City",
+        "region": null,
+        "evidence_ids": ["evidence-fixture-location-0001"]
+      },
+      "equipment_categories": ["camera"],
+      "requested_equipment": [
+        {
+          "request_id": "request-fixture-camera-0001",
+          "description": "Contract fixture request for a professional cinema camera.",
+          "equipment_category": "camera",
+          "evidence_ids": ["evidence-fixture-demand-0001"],
+          "quantity": null,
+          "budget": null,
+          "timeline": null
+        }
+      ],
+      "demand_classification": "explicit",
+      "demand_evidence_ids": ["evidence-fixture-demand-0001"],
+      "factual_evidence": [
+        {
+          "evidence_id": "evidence-fixture-identity-0001",
+          "claim_classification": "organization_identity",
+          "claim": "Reserved-domain fixture identifies the synthetic organization.",
+          "source_type": "organization_website",
+          "source_url": "https://example.invalid/organization",
+          "source_title": "Contract fixture organization",
+          "source_language": "English",
+          "observed_at": "2026-08-26T00:00:00Z"
+        },
+        {
+          "evidence_id": "evidence-fixture-location-0001",
+          "claim_classification": "market_location",
+          "claim": "Reserved-domain fixture places the synthetic organization in Fixture City, Vietnam.",
+          "source_type": "organization_website",
+          "source_url": "https://example.invalid/location",
+          "source_title": "Contract fixture location",
+          "source_language": "English",
+          "observed_at": "2026-08-26T00:00:00Z"
+        },
+        {
+          "evidence_id": "evidence-fixture-demand-0001",
+          "claim_classification": "demand",
+          "claim": "Reserved-domain fixture explicitly requests one category of professional equipment without quantity, budget, or timeline.",
+          "source_type": "public_request",
+          "source_url": "https://example.invalid/wtb-request",
+          "source_title": "Contract fixture WTB request",
+          "source_language": "English",
+          "observed_at": "2026-08-26T00:00:00Z"
+        }
+      ],
+      "source_urls": [
+        "https://example.invalid/location",
+        "https://example.invalid/organization",
+        "https://example.invalid/wtb-request"
+      ],
+      "source_languages": ["English"],
+      "research_timestamp": "2026-08-26T00:00:00Z",
+      "candidate_status": "researched",
+      "norms_review_status": "not_reviewed",
+      "buyer_confirmation_status": "unconfirmed",
+      "publication_status": "not_approved",
+      "supersedes_candidate_id": null,
+      "deduplication_keys": {
+        "normalized_website_domain": "example.invalid",
+        "normalized_organization_name": "contract fixture organization",
+        "external_public_ids": []
+      }
+    }
+  ]
+}

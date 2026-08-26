@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-sourcing-contracts_dev/contract-v0.2.0/schemas/wtb-candidate-batch.schema.json",
+  "title": "NX WTB candidate batch",
+  "description": "An append-only untrusted submission envelope for WTB candidates that are not published listings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "batch_id", "batch_classification", "submission_purpose", "generated_at", "generating_environment", "assignment_reference", "research_market", "supersedes_batch_id", "record_count", "records"],
+  "properties": {
+    "contract_version": {"const": "0.2.0"},
+    "batch_id": {"type": "string", "pattern": "^wtb-batch-[a-z0-9][a-z0-9-]{7,79}$"},
+    "batch_classification": {"const": "untrusted_wtb_candidate_submission"},
+    "submission_purpose": {"enum": ["intake_submission", "contract_fixture"]},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "generating_environment": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "assignment_reference": {"type": ["string", "null"], "format": "uri"},
+    "research_market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "country_codes", "cities"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1, "maxLength": 500},
+        "country_codes": {"type": "array", "uniqueItems": true, "maxItems": 50, "items": {"type": "string", "pattern": "^[A-Z]{2}$"}},
+        "cities": {"type": "array", "uniqueItems": true, "maxItems": 100, "items": {"type": "string", "minLength": 1, "maxLength": 160}}
+      }
+    },
+    "supersedes_batch_id": {"type": ["string", "null"], "pattern": "^wtb-batch-[a-z0-9][a-z0-9-]{7,79}$"},
+    "record_count": {"type": "integer", "minimum": 0},
+    "records": {"type": "array", "items": {"$ref": "wtb-candidate.schema.json"}}
+  }
+}
